@@ -38,10 +38,8 @@ traits(isArithmetic, Type) :- traits(isIntegral, Type).
 traits(isArithmetic, Type) :- traits(isFloating, Type).
 
 % Works like isArithmetic, except it's for integral types.
-traits(isIntegral, [enum, Type]) :- signedIntegerType(Type).
-traits(isIntegral, [enum, Type]) :- unsignedIntegerType(Type).
-traits(isIntegral, Type) :- signedIntegerType(Type).
-traits(isIntegral, Type) :- unsignedIntegerType(Type).
+traits(isIntegral, [enum, Type]) :- integerType(Type).
+traits(isIntegral, Type) :- integerType(Type).
 
 % Works like isArithmetic, except it's for floating types.
 traits(isFloating, [enum, Type]) :- floatingType(Type).
