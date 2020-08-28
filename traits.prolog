@@ -73,9 +73,12 @@ traits(isZeroInit, [enum, ucent]).
 traits(isZeroInit, [enum, size_t]).
 traits(isZeroInit, [pointer, Type]) :- type(Type).
 traits(isZeroInit, [array, Type]) :- type(Type).
-traits(isZeroInit, [struct, Id]) :- ident(Id).
-traits(isZeroInit, [class, Id]) :- ident(Id).
-traits(isZeroInit, [union, Id]) :- ident(Id).
+traits(isZeroInit, [struct, Name]) :- ident(Name).
+traits(isZeroInit, [struct, Name, [Item, Type]]) :-
+    ident(Name), ident(Item), traits(isZeroInit, Type).
+traits(isZeroInit, [class, Name]) :- ident(Name).
+traits(isZeroInit, [union, Name]) :- ident(Name).
+
 
 % utils
 
