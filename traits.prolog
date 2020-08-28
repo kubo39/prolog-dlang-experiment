@@ -14,6 +14,22 @@
 traits(isArithmetic, Type1, Type2) :-
     traits(isArithmetic, Type1), traits(isArithmetic, Type2).
 
+% If the string is valid property of the type.
+traits(hasMember, Type, init) :- type(Type).
+traits(hasMember, Type, sizeof) :- type(Type).
+traits(hasMember, Type, alignof) :- type(Type).
+traits(hasMember, Type, mangleof) :- type(Type).
+traits(hasMember, Type, stringof) :- type(Type).
+traits(hasMember, Type, max) :- integerType(Type).
+traits(hasMember, Type, min) :- integerType(Type).
+traits(hasMember, Type, infinity) :- floatingType(Type).
+traits(hasMember, Type, nan) :- floatingType(Type).
+traits(hasMember, Type, dig) :- floatingType(Type).
+traits(hasMember, Type, epsilon) :- floatingType(Type).
+traits(hasMember, Type, max) :- integerType(Type).
+traits(hasMember, [struct, _, [Field, Type]], Property) :-
+    type(Type), Field = Property.
+
 % traits/2
 %
 
@@ -74,8 +90,8 @@ traits(isZeroInit, [enum, size_t]).
 traits(isZeroInit, [pointer, Type]) :- type(Type).
 traits(isZeroInit, [array, Type]) :- type(Type).
 traits(isZeroInit, [struct, Name]) :- ident(Name).
-traits(isZeroInit, [struct, Name, [Item, Type]]) :-
-    ident(Name), ident(Item), traits(isZeroInit, Type).
+traits(isZeroInit, [struct, Name, [Field, Type]]) :-
+    ident(Name), ident(Field), traits(isZeroInit, Type).
 traits(isZeroInit, [class, Name]) :- ident(Name).
 traits(isZeroInit, [union, Name]) :- ident(Name).
 
@@ -132,6 +148,9 @@ floatingType(Type) :- Type = ireal.
 floatingType(Type) :- Type = cfloat.
 floatingType(Type) :- Type = cdouble.
 floatingType(Type) :- Type = creal.
+
+integerType(Type) :- unsignedIntegerType(Type).
+integerType(Type) :- signedIntegerType(Type).
 
 unsignedIntegerType(Type) :- Type = bool.
 unsignedIntegerType(Type) :- Type = ubyte.
