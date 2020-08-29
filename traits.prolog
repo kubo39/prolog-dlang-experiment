@@ -1,9 +1,10 @@
 %%
 %%
-%%  [struct, Name]
-%%  [class, Name]
-%%  [array, Type]
-%%  [pointer, Type]
+%%  Struct:   [struct, Name, [Field, Type]]
+%%  Class:    [class, Name]
+%%  Array:    [array, Type]
+%%  Pointer:  [pointer, Type]
+%%  Function: [function, ParamType, ReturnType]
 %%
 %%
 
@@ -131,6 +132,8 @@ basicDataType(Type) :- Type = dchar.
 
 derivedDataType([array, Type]) :- type(Type).
 derivedDataType([pointer, Type]) :- type(Type).
+derivedDataType([function, ParamType, ReturnType]) :-
+    type(ParamType), type(ReturnType).
 
 userDefinedType([enum, Type]) :- not(Type = void), type(Type).
 userDefinedType([struct, Id]) :- ident(Id).
