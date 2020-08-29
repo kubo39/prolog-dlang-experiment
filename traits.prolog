@@ -27,7 +27,7 @@ traits(hasMember, Type, infinity) :- floatingType(Type).
 traits(hasMember, Type, nan) :- floatingType(Type).
 traits(hasMember, Type, dig) :- floatingType(Type).
 traits(hasMember, Type, epsilon) :- floatingType(Type).
-traits(hasMember, Type, max) :- integerType(Type).
+traits(hasMember, Type, max) :- floatingType(Type).
 traits(hasMember, [struct, Name, [Field, Type]], Property) :-
     ident(Name), type(Type), Field = Property.
 
