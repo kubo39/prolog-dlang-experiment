@@ -95,7 +95,7 @@ traits(isZeroInit, [class, Name]) :- ident(Name).
 traits(isZeroInit, [union, Name]) :- ident(Name).
 
 
-% utils
+% Basics
 
 keyword(Id) :- basicDataType(Id).
 keyword(Id) :- Id = enum.
@@ -105,6 +105,9 @@ keyword(Id) :- Id = union.
 keyword(Id) :- Id = size_t.
 keyword(Id) :- Id = ptrdiff_t.
 keyword(Id) :- Id = string.
+
+parameterType([ref, Type]) :- not(Type = void), type(Type).
+parameterType(Type) :- type(Type).
 
 type(Type) :- basicDataType(Type).
 type(Type) :- derivedDataType(Type).
@@ -133,7 +136,7 @@ basicDataType(Type) :- Type = dchar.
 derivedDataType([array, Type]) :- type(Type).
 derivedDataType([pointer, Type]) :- type(Type).
 derivedDataType([function, ParamType, ReturnType]) :-
-    type(ParamType), type(ReturnType).
+    parameterType(ParamType), type(ReturnType).
 
 userDefinedType([enum, Type]) :- not(Type = void), type(Type).
 userDefinedType([struct, Id]) :- ident(Id).
