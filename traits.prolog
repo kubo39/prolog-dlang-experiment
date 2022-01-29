@@ -1,6 +1,6 @@
 %%
 %%
-%%  Struct:   [struct, Name, [Field, Type]]
+%%  Struct:   [struct, Name, [Field, Type], Copyable]
 %%  Class:    [class, Name]
 %%  Array:    [array, Type]
 %%  Pointer:  [pointer, Type]
@@ -33,6 +33,14 @@ traits(hasMember, [struct, Name, [Field, Type]], Property) :-
 
 % traits/2
 %
+
+traits(isCopyable, Type) :- basicDataType(Type).
+traits(isCopyable, [array, Type]) :- basicDataType(Type).
+traits(isCopyable, [struct, _, [_, Type], Copyable]):-
+    traits(isCopyable,Type), Copyable = copyable.
+traits(isCopyable, [class, _]).
+traits(isCopyable, [pointer, _]).
+traits(isCopyable, [function, _, _]).
 
 % If the arguments are all either types that are arithmetic types.
 traits(isArithmetic, Type) :- traits(isIntegral, Type).
