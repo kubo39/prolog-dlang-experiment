@@ -39,22 +39,22 @@ traits(isArithmetic, Type) :- traits(isIntegral, Type).
 traits(isArithmetic, Type) :- traits(isFloating, Type).
 
 % Works like isArithmetic, except it's for integral types.
-traits(isIntegral, [enum, Type]) :- integerType(Type).
 traits(isIntegral, Type) :- integerType(Type).
+traits(isIntegral, [enum, Type]) :- integerType(Type).
 
 % Works like isArithmetic, except it's for floating types.
-traits(isFloating, [enum, Type]) :- floatingType(Type).
 traits(isFloating, Type) :- floatingType(Type).
+traits(isFloating, [enum, Type]) :- floatingType(Type).
 
 % Works like isArithmetic, except it's for unsigned types.
-traits(isUnsined, [enum, Type]) :- unsignedIntegerType(Type).
 traits(isUnsined, Type) :- unsignedIntegerType(Type).
+traits(isUnsined, [enum, Type]) :- unsignedIntegerType(Type).
 
 % Works like isArithmetic, except it's for scalar types.
+traits(isScalar, Type) :- traits(isArithmetic, Type).
 traits(isScalar, [enum, [pointer, Type]]) :- traits(isScalar, [pointer, Type]).
 traits(isScalar, [enum, Type]) :- traits(isArithmetic, Type).
 traits(isScalar, [pointer, Type]) :- type(Type).
-traits(isScalar, Type) :- traits(isArithmetic, Type).
 
 % If the type's default initializer is all zero.
 traits(isZeroInit, void).
