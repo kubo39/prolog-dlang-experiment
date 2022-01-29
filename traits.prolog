@@ -29,18 +29,19 @@ traits(hasMember, Type, dig) :- floatingType(Type).
 traits(hasMember, Type, epsilon) :- floatingType(Type).
 traits(hasMember, Type, max) :- floatingType(Type).
 traits(hasMember, [struct, Name, [Field, Type]], Property) :-
-    ident(Name), type(Type), Field = Property.
+    ident(Name), type(Type), ident(Field), Field = Property.
 
 % traits/2
 %
 
 traits(isCopyable, Type) :- basicDataType(Type).
 traits(isCopyable, [array, Type]) :- basicDataType(Type).
-traits(isCopyable, [struct, _, [_, Type], Copyable]):-
-    traits(isCopyable,Type), Copyable = copyable.
-traits(isCopyable, [class, _]).
-traits(isCopyable, [pointer, _]).
-traits(isCopyable, [function, _, _]).
+traits(isCopyable, [struct, Name, [Field, Type], Copyable]) :-
+    ident(Name), ident(Field), traits(isCopyable, Type), Copyable = copyable.
+traits(isCopyable, [class, Name]) :- ident(Name).
+traits(isCopyable, [pointer, Type]) :- type(Type).
+traits(isCopyable, [function, ParamType, ReturnType]) :-
+    type(ParamType), type(ReturnType).
 
 % If the arguments are all either types that are arithmetic types.
 traits(isArithmetic, Type) :- traits(isIntegral, Type).
