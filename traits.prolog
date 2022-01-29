@@ -41,7 +41,7 @@ traits(isCopyable, [struct, Name, [Field, Type], Copyable]) :-
 traits(isCopyable, [class, Name]) :- ident(Name).
 traits(isCopyable, [pointer, Type]) :- type(Type).
 traits(isCopyable, [function, ParamType, ReturnType]) :-
-    type(ParamType), type(ReturnType).
+    parameterType(ParamType), type(ReturnType).
 
 % If the arguments are all either types that are arithmetic types.
 traits(isArithmetic, Type) :- traits(isIntegral, Type).
