@@ -11,5 +11,5 @@ currently built-in __traits only.
 ```console
 $ swipl -q -f traits.prolog
 ?- traits(isFloating, T).
-T = [enum, float] .
+T = float .
 ```
