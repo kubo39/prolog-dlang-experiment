@@ -35,7 +35,7 @@ traits(hasMember, [struct, Name, [Field, Type]], Property) :-
 %
 
 traits(isCopyable, Type) :- basicDataType(Type).
-traits(isCopyable, [array, Type]) :- basicDataType(Type).
+traits(isCopyable, [array, Type]) :- traits(isCopyable, Type).
 traits(isCopyable, [struct, Name, [Field, Type], Copyable]) :-
     ident(Name), ident(Field), traits(isCopyable, Type), Copyable = copyable.
 traits(isCopyable, [class, Name]) :- ident(Name).
